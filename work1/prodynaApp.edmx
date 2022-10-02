@@ -1,0 +1,354 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="prodyna_serbiaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="employees">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="first_name" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="last_name" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="team_id" Type="int" Nullable="false" />
+          <Property Name="role_id" Type="int" Nullable="false" />
+          <Property Name="team_leader_id" Type="int" />
+        </EntityType>
+        <EntityType Name="roles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="skills">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="team_skills">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="team_id" Type="int" Nullable="false" />
+          <Property Name="skill_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="teams">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_employees_employees">
+          <End Role="employees" Type="Self.employees" Multiplicity="0..1" />
+          <End Role="employees1" Type="Self.employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employees">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="employees1">
+              <PropertyRef Name="team_leader_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_employees_roles">
+          <End Role="roles" Type="Self.roles" Multiplicity="1" />
+          <End Role="employees" Type="Self.employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="employees">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_employees_teams">
+          <End Role="teams" Type="Self.teams" Multiplicity="1" />
+          <End Role="employees" Type="Self.employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teams">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="employees">
+              <PropertyRef Name="team_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_team_skills_skills">
+          <End Role="skills" Type="Self.skills" Multiplicity="1" />
+          <End Role="team_skills" Type="Self.team_skills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="skills">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="team_skills">
+              <PropertyRef Name="skill_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_team_skills_teams">
+          <End Role="teams" Type="Self.teams" Multiplicity="1" />
+          <End Role="team_skills" Type="Self.team_skills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teams">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="team_skills">
+              <PropertyRef Name="team_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="prodyna_serbiaModelStoreContainer">
+          <EntitySet Name="employees" EntityType="Self.employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="roles" EntityType="Self.roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="skills" EntityType="Self.skills" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="team_skills" EntityType="Self.team_skills" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="teams" EntityType="Self.teams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_employees_employees" Association="Self.FK_employees_employees">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="employees1" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_employees_roles" Association="Self.FK_employees_roles">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="employees" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_employees_teams" Association="Self.FK_employees_teams">
+            <End Role="teams" EntitySet="teams" />
+            <End Role="employees" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_team_skills_skills" Association="Self.FK_team_skills_skills">
+            <End Role="skills" EntitySet="skills" />
+            <End Role="team_skills" EntitySet="team_skills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_team_skills_teams" Association="Self.FK_team_skills_teams">
+            <End Role="teams" EntitySet="teams" />
+            <End Role="team_skills" EntitySet="team_skills" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="prodyna_serbiaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="employees">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="first_name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="last_name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="team_id" Type="Int32" Nullable="false" />
+          <Property Name="role_id" Type="Int32" Nullable="false" />
+          <Property Name="team_leader_id" Type="Int32" />
+          <NavigationProperty Name="employees1" Relationship="Self.FK_employees_employees" FromRole="employees" ToRole="employees1" />
+          <NavigationProperty Name="employees2" Relationship="Self.FK_employees_employees" FromRole="employees1" ToRole="employees" />
+          <NavigationProperty Name="roles" Relationship="Self.FK_employees_roles" FromRole="employees" ToRole="roles" />
+          <NavigationProperty Name="teams" Relationship="Self.FK_employees_teams" FromRole="employees" ToRole="teams" />
+        </EntityType>
+        <EntityType Name="roles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="employees" Relationship="Self.FK_employees_roles" FromRole="roles" ToRole="employees" />
+        </EntityType>
+        <EntityType Name="skills">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="team_skills" Relationship="Self.FK_team_skills_skills" FromRole="skills" ToRole="team_skills" />
+        </EntityType>
+        <EntityType Name="team_skills">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="team_id" Type="Int32" Nullable="false" />
+          <Property Name="skill_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="skills" Relationship="Self.FK_team_skills_skills" FromRole="team_skills" ToRole="skills" />
+          <NavigationProperty Name="teams" Relationship="Self.FK_team_skills_teams" FromRole="team_skills" ToRole="teams" />
+        </EntityType>
+        <EntityType Name="teams">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="employees" Relationship="Self.FK_employees_teams" FromRole="teams" ToRole="employees" />
+          <NavigationProperty Name="team_skills" Relationship="Self.FK_team_skills_teams" FromRole="teams" ToRole="team_skills" />
+        </EntityType>
+        <Association Name="FK_employees_employees">
+          <End Role="employees" Type="Self.employees" Multiplicity="0..1" />
+          <End Role="employees1" Type="Self.employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employees">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="employees1">
+              <PropertyRef Name="team_leader_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_employees_roles">
+          <End Role="roles" Type="Self.roles" Multiplicity="1" />
+          <End Role="employees" Type="Self.employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="employees">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_employees_teams">
+          <End Role="teams" Type="Self.teams" Multiplicity="1" />
+          <End Role="employees" Type="Self.employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teams">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="employees">
+              <PropertyRef Name="team_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_team_skills_skills">
+          <End Role="skills" Type="Self.skills" Multiplicity="1" />
+          <End Role="team_skills" Type="Self.team_skills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="skills">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="team_skills">
+              <PropertyRef Name="skill_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_team_skills_teams">
+          <End Role="teams" Type="Self.teams" Multiplicity="1" />
+          <End Role="team_skills" Type="Self.team_skills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teams">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="team_skills">
+              <PropertyRef Name="team_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="prodyna_serbiaEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="employees" EntityType="Self.employees" />
+          <EntitySet Name="roles" EntityType="Self.roles" />
+          <EntitySet Name="skills" EntityType="Self.skills" />
+          <EntitySet Name="team_skills" EntityType="Self.team_skills" />
+          <EntitySet Name="teams" EntityType="Self.teams" />
+          <AssociationSet Name="FK_employees_employees" Association="Self.FK_employees_employees">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="employees1" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_employees_roles" Association="Self.FK_employees_roles">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="employees" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_employees_teams" Association="Self.FK_employees_teams">
+            <End Role="teams" EntitySet="teams" />
+            <End Role="employees" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_team_skills_skills" Association="Self.FK_team_skills_skills">
+            <End Role="skills" EntitySet="skills" />
+            <End Role="team_skills" EntitySet="team_skills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_team_skills_teams" Association="Self.FK_team_skills_teams">
+            <End Role="teams" EntitySet="teams" />
+            <End Role="team_skills" EntitySet="team_skills" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="prodyna_serbiaModelStoreContainer" CdmEntityContainer="prodyna_serbiaEntities2">
+          <EntitySetMapping Name="employees">
+            <EntityTypeMapping TypeName="prodyna_serbiaModel.employees">
+              <MappingFragment StoreEntitySet="employees">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="team_id" ColumnName="team_id" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="team_leader_id" ColumnName="team_leader_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="roles">
+            <EntityTypeMapping TypeName="prodyna_serbiaModel.roles">
+              <MappingFragment StoreEntitySet="roles">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="skills">
+            <EntityTypeMapping TypeName="prodyna_serbiaModel.skills">
+              <MappingFragment StoreEntitySet="skills">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="team_skills">
+            <EntityTypeMapping TypeName="prodyna_serbiaModel.team_skills">
+              <MappingFragment StoreEntitySet="team_skills">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="team_id" ColumnName="team_id" />
+                <ScalarProperty Name="skill_id" ColumnName="skill_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="teams">
+            <EntityTypeMapping TypeName="prodyna_serbiaModel.teams">
+              <MappingFragment StoreEntitySet="teams">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="prodyna_serbiaModelStoreContainer" CdmEntityContainer="prodyna_serbiaEntities2">
+    <EntitySetMapping Name="employees">
+      <EntityTypeMapping TypeName="prodyna_serbiaModel.employees">
+        <MappingFragment StoreEntitySet="employees">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="first_name" ColumnName="first_name" />
+          <ScalarProperty Name="last_name" ColumnName="last_name" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="team_id" ColumnName="team_id" />
+          <ScalarProperty Name="role_id" ColumnName="role_id" />
+          <ScalarProperty Name="team_leader_id" ColumnName="team_leader_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="roles">
+      <EntityTypeMapping TypeName="prodyna_serbiaModel.roles">
+        <MappingFragment StoreEntitySet="roles">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="skills">
+      <EntityTypeMapping TypeName="prodyna_serbiaModel.skills">
+        <MappingFragment StoreEntitySet="skills">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="team_skills">
+      <EntityTypeMapping TypeName="prodyna_serbiaModel.team_skills">
+        <MappingFragment StoreEntitySet="team_skills">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="team_id" ColumnName="team_id" />
+          <ScalarProperty Name="skill_id" ColumnName="skill_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="teams">
+      <EntityTypeMapping TypeName="prodyna_serbiaModel.teams">
+        <MappingFragment StoreEntitySet="teams">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

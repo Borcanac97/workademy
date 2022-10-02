@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f9c1c21ae3b24123a8639bca560a7d80" Name="Diagram1">
+        <EntityTypeShape EntityType="prodyna_serbiaModel.employees" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="prodyna_serbiaModel.roles" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="prodyna_serbiaModel.skills" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="prodyna_serbiaModel.team_skills" Width="1.5" PointX="6" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="prodyna_serbiaModel.teams" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <AssociationConnector Association="prodyna_serbiaModel.FK_employees_employees" ManuallyRouted="false" />
+        <AssociationConnector Association="prodyna_serbiaModel.FK_employees_roles" ManuallyRouted="false" />
+        <AssociationConnector Association="prodyna_serbiaModel.FK_employees_teams" ManuallyRouted="false" />
+        <AssociationConnector Association="prodyna_serbiaModel.FK_team_skills_skills" ManuallyRouted="false" />
+        <AssociationConnector Association="prodyna_serbiaModel.FK_team_skills_teams" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
